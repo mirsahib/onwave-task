@@ -63,10 +63,16 @@ services:
       MYSQL_DATABASE: '${DB_DATABASE}'
       MYSQL_USER: '${DB_USER}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
     volumes:
       - db-data:/var/lib/mysql
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 2048m
 
 volumes:
   db-data:

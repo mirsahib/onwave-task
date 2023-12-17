@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  # Node.js server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001" # Adjust port if your Node.js server uses a different one
+    depends_on:
+      - mysql
+    env_file: .env
+    environment:
+      MYSQL_HOST: '${DB_HOST}'
+      MYSQL_PORT: '${DB_PORT}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+    volumes:
+      - ./backend:/backend
+    networks:
+      - app-network
+
+  # Vite React frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "3010:3010" # Adjust port if your Vite development server uses a different one
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/frontend
+    networks:
+      - app-network
+
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    env_file: .env
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+    networks:
+      - app-network
+
+  # MySQL database
+  mysql:
+    image: mysql:8.0.35-debian
+    ports:
+      - "3306:3306"
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+  
+
+
+networks:
+  app-network:
+    driver: bridge

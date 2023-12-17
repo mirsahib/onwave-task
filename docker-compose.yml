@@ -17,6 +17,7 @@ services:
       MYSQL_USER: '${DB_USER}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_DATABASE: '${DB_DATABASE}'
+      SERVER_PORT: '${SERVER_PORT}'
     volumes:
       - ./backend:/backend
     networks:

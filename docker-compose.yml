@@ -26,15 +26,14 @@ services:
   # Vite React frontend
   frontend:
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-      - "3010:3010" # Adjust port if your Vite development server uses a different one
+      - "8080:8080" # Adjust port if your Vite development server uses a different one
     depends_on:
       - backend
     volumes:
-      - ./frontend:/frontend
+      - ./client:/client
     networks:
       - app-network
 

@@ -5,10 +5,11 @@ const db = require("./database/db"); // Adjust the path accordingly
 const userRepository = require("./database/repository/user.repository");
 const userRoutes = require("./routes/user.routes");
 const app = express();
-app.use(bodyParser.json());
+const cors = require('cors')
 const port = process.env.SERVER_PORT || 3001;
 
-
+app.use(cors())
+app.use(bodyParser.json());
 app.use('/', userRoutes);
 app.get("/", (req, res) => {
     console.log("process", process.env.SERVER_PORT);

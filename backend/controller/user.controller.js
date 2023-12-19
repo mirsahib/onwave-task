@@ -3,13 +3,16 @@ const userRepository = require("../database/repository/user.repository");
 const create = async (req, res) => {
     try {
         const newUser = req.body;
-        await userRepository.createUser(newUser);
-        res.status(201).send("User created successfully");
+        const userId = await userRepository.createUser({...newUser, type: 'user', active: true});
+        
+        // Send the user ID as a response
+        res.status(201).json({ userId, message: "User created successfully" });
     } catch (error) {
         console.error("Error creating user:", error);
         res.status(500).send("Internal Server Error");
     }
 };
+
 /**
  * Load user and append to req.
  */
@@ -63,6 +66,29 @@ const remove = async (req, res) => {
     }
 };
 
+const uploadImage = async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      console.log("🚀 ~ file: user.controller.js:72 ~ uploadImage ~ userId:", userId)
+  
+      if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+      }
+  
+      const fileName = req.file.filename;
+      console.log("🚀 ~ file: user.controller.js:78 ~ uploadImage ~ fileName:", fileName)
+  
+      // Update the user's profile image in the database
+      await userRepository.updateProfileImage(userId, fileName);
+  
+      res.status(200).json({ message: 'File uploaded successfully', fileName });
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+
 module.exports = {
     list,
     create,
@@ -70,4 +96,5 @@ module.exports = {
     update,
     remove,
     userByID,
+    uploadImage
 };

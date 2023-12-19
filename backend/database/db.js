@@ -39,6 +39,7 @@ async function createUsersTable() {
         ID INT NOT NULL AUTO_INCREMENT,
         email VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
         password VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
+        profile_img VARCHAR(255) CHARACTER SET 'utf8mb4',
         type VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
         active TINYINT DEFAULT 1,
         PRIMARY KEY (ID)
@@ -53,9 +54,11 @@ async function createUsersTable() {
     }
 }
 
+
 console.log("Database connection established!");
 
 // Call the function to create the users table
+
 createUsersTable();
 
 module.exports = {

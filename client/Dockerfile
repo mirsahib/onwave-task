@@ -1,20 +1,14 @@
-# Use a Node.js base image
-FROM node:14
+# Use an official lightweight alpine image
+FROM nginx:alpine
 
-# Set the working directory
-WORKDIR /usr/src/app
+# Set the working directory to /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application
+# Copy the current directory contents into the container at /usr/share/nginx/html
 COPY . .
 
-# Expose port 8080 for the live-server
-EXPOSE 8080
+# Expose port 80 to the outside world
+EXPOSE 80
 
-# Start the live-server on container startup
-CMD ["npm", "start"]
+# Command to run the executable
+CMD ["nginx", "-g", "daemon off;"]

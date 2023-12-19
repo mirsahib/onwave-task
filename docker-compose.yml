@@ -29,7 +29,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "8080:8080" # Adjust port if your Vite development server uses a different one
+      - "8080:80" # Adjust port if your Vite development server uses a different one
     depends_on:
       - backend
     volumes:

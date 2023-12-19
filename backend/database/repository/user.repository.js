@@ -17,6 +17,11 @@ class UserRepository {
         return db.query(sql, [userId]);
     }
 
+    async getImageFilename(userId){
+        const sql = `SELECT profile_img FROM ${this.tableName} WHERE ID = ?`;
+        return db.query(sql, [userId]);
+    }
+
     async createUser(user) {
         const { email, password, type, active } = user;
         const insertSql = `INSERT INTO ${this.tableName} (email, password, type, active) VALUES (?, ?, ?, ?)`;
@@ -45,6 +50,7 @@ class UserRepository {
         const values = [fileName, userId];
         return db.query(sql, values);
     }
+
 
     async updateUser(userId, updatedUser) {
         console.log(

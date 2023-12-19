@@ -1,10 +1,16 @@
 const userRepository = require("../database/repository/user.repository");
+const path = require("path");
+const fs = require('fs');
 
 const create = async (req, res) => {
     try {
         const newUser = req.body;
-        const userId = await userRepository.createUser({...newUser, type: 'user', active: true});
-        
+        const userId = await userRepository.createUser({
+            ...newUser,
+            type: "user",
+            active: true,
+        });
+
         // Send the user ID as a response
         res.status(201).json({ userId, message: "User created successfully" });
     } catch (error) {
@@ -17,7 +23,6 @@ const create = async (req, res) => {
  * Load user and append to req.
  */
 const userByID = async (req, res, next, id) => {
-    console.log("🚀 ~ file: user.controller.js:17 ~ userByID ~ id:", id)
     try {
         const user = await userRepository.getUserById(id);
         if (!user) {
@@ -47,7 +52,7 @@ const list = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const updatedUser = req.body;        
+        const updatedUser = req.body;
         await userRepository.updateUser(req.profile.ID, updatedUser);
         res.status(200).send("User updated successfully");
     } catch (error) {
@@ -68,26 +73,63 @@ const remove = async (req, res) => {
 
 const uploadImage = async (req, res) => {
     try {
-      const userId = req.params.userId;
-      console.log("🚀 ~ file: user.controller.js:72 ~ uploadImage ~ userId:", userId)
-  
-      if (!req.file) {
-        return res.status(400).send('No file uploaded.');
-      }
-  
-      const fileName = req.file.filename;
-      console.log("🚀 ~ file: user.controller.js:78 ~ uploadImage ~ fileName:", fileName)
-  
-      // Update the user's profile image in the database
-      await userRepository.updateProfileImage(userId, fileName);
-  
-      res.status(200).json({ message: 'File uploaded successfully', fileName });
+        const userId = req.params.userId;
+        console.log(
+            "🚀 ~ file: user.controller.js:72 ~ uploadImage ~ userId:",
+            userId
+        );
+
+        if (!req.file) {
+            return res.status(400).send("No file uploaded.");
+        }
+        console.log(
+            "🚀 ~ file: user.controller.js:69 ~ uploadImage ~ req:",
+            req.file
+        );
+
+        const fileName = req.file.filename;
+        console.log(
+            "🚀 ~ file: user.controller.js:78 ~ uploadImage ~ fileName:",
+            fileName
+        );
+
+        // Update the user's profile image in the database
+        await userRepository.updateProfileImage(userId, fileName);
+
+        res.status(200).json({
+            message: "File uploaded successfully",
+            fileName,
+        });
     } catch (error) {
-      console.error('Error uploading file:', error);
-      res.status(500).send('Internal Server Error');
+        console.error("Error uploading file:", error);
+        res.status(500).send("Internal Server Error");
     }
-  };
-  
+};
+
+const getImages = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        console.log("🚀 ~ file: user.controller.js:110 ~ getImages ~ userId:", userId)
+
+        const imageNames = await userRepository.getImageFilename(userId);
+
+        if (!imageNames || imageNames.length === 0) {
+            return res.status(404).send("No images found");
+        }
+
+        const firstImageName = imageNames[0].profile_img;
+        console.log("🚀 ~ file: user.controller.js:121 ~ getImages ~ firstImageName:", firstImageName)
+        const imagePath = path.join(__dirname, '..', 'uploads', firstImageName);
+        
+        const image = fs.readFileSync(imagePath);
+        res.setHeader('Content-Type', 'image/jpeg'); 
+        // Send the image file
+        res.end(image);
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        res.status(500).send("Internal Server Error");
+    }
+};
 
 module.exports = {
     list,
@@ -96,5 +138,6 @@ module.exports = {
     update,
     remove,
     userByID,
-    uploadImage
+    uploadImage,
+    getImages
 };

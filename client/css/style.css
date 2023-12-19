@@ -288,7 +288,7 @@ button {
 .sign_btn a {
      display: inline-block;
      padding: 7px 35px;
-     color: #eb699e;
+     color: #6970ea;
      font-size: 17px;
 }
 
@@ -312,7 +312,7 @@ button {
      font-size: 40px;
      font-weight: bold;
      text-transform: uppercase;
-     color: #fff;
+     color: #6970ea;
      line-height: 40px;
 }
 
@@ -346,7 +346,7 @@ button {
 }
 
 .text-bg span {
-     color: #eb699e;
+     color: #6970ea;
      font-size: 45px;
      line-height: 50px;
      font-weight: bold;
@@ -412,7 +412,7 @@ button {
 .Features .titlepage span {
      font-size: 17px;
      line-height: 30px;
-     color: #eb699e;
+     color: #6970ea;
      font-weight: 501;
      display: block;
      padding-top: 10px;
@@ -436,7 +436,7 @@ button {
 }
 
 .Features .read_more {
-     color: #eb699e;
+     color: #6970ea;
      margin: 0 auto;
      display: block;
      margin-top: 30px;
@@ -484,21 +484,22 @@ button {
 }
 
 .discount .titlepage .read_more {
-     color: #eb699e;
+     color: #6970ea;
 }
 
 .discount .titlepage .read_more:hover {
-     color: #eb699e;
+     color: #6970ea;
 }
 
+/** end discount section eb699e  **/
 
-/** end discount section **/
+/** end discount section 91f79d  **/
 
 .read_more {
      font-size: 17px;
      background-color: transparent;
-     border: #eb699e solid 2px;
-     color: #eb699e;
+     border: #6970ea solid 2px;
+     color: #6970ea;
      padding: 13px 0px;
      width: 100%;
      max-width: 190px;
@@ -509,7 +510,7 @@ button {
 
 .read_more:hover {
      background: #fff;
-     color: #eb699e;
+     color: #6970ea;
      transition: ease-in all 0.5s;
 }
 
@@ -527,7 +528,7 @@ button {
 
 .main_form {
      padding: 40px 30px;
-     background: #eb699e;
+     background: #6970ea;
 }
 
 .main_form .contactus {
@@ -660,7 +661,7 @@ button {
 }
 
 .people_Carousel .carousel-indicators li.active {
-     background: #eb699e;
+     background: #6970ea;
 }
 
 .carousel-control-next-icon,
@@ -750,7 +751,7 @@ button {
 }
 
 .sub_btn:hover {
-     background-color: #eb699e;
+     background-color: #6970ea;
      transition: ease-in all 0.5s;
      color: #fff;
 }
@@ -774,7 +775,7 @@ button {
 }
 
 .copyright a:hover {
-     color: #eb699e;
+     color: #6970ea;
 }
 
 

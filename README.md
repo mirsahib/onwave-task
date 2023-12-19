@@ -1,7 +1,10 @@
 # On Wave Task
 "Explore the ultimate sports and fitness hub, where passion meets performance. Our website is your go-to destination for all things sports, delivering the latest news, expert insights, and in-depth coverage of various athletic disciplines. Dive into a world of fitness tips, workout routines, and wellness inspiration to elevate your game and lead a healthier lifestyle. Whether you're a seasoned athlete or a fitness enthusiast, discover the power of sport and wellness on our dynamic platform."
 
-[![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/maxresdefault.jpg)](https://youtu.be/-lt-diQljnU?si=d-LpRrcxO6VBs1OB)
+![Screenshot](https://raw.githubusercontent.com/mirsahib/onwave-task/client/.github/Screenshot.png)
+
+### Video
+https://youtu.be/-lt-diQljnU?si=d-LpRrcxO6VBs1OB
 
 
 

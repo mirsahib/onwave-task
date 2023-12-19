@@ -39,3 +39,5 @@ Follow these steps to run the application using Docker.
 
 ### Notes
 - phypmyadmin: http://localhost:8081
+- username: mirsahib
+- password: mirsahib
